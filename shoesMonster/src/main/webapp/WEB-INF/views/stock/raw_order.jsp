@@ -28,19 +28,19 @@
 		<th>발주일</th>
 		<th>담당자</th>
 	</tr>
-		<c:forEach var="vo" items="">
+		<c:forEach var="vo" items="${ro_List }">
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
+		        <td>${vo.raw_code}</td>
+		        <td>${vo.raw_code}</td>
+		        <td>${vo.raw_code}</td>
+		        <td>${vo.raw_code}</td>
+		        <td>${vo.raw_code}</td>
+		        <td>${vo.raw_code}</td>
+		        <td>${vo.raw_code}</td>
+		        <td>${vo.raw_code}</td>
+		        <td>${vo.raw_code}</td>
+		        <td>${vo.raw_code}</td>
+		    </tr>
 		</c:forEach>
 	</table>
 	
