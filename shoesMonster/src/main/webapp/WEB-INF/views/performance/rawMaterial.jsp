@@ -49,12 +49,6 @@
             
             // =============================================================================================================
  
-            // 저장 버튼 클릭 시 페이지 이동
-            $('form').submit(function() {
-               return true;
-            });
-            
-
         	//취소버튼 -> 리셋
 			$('#cancle').click(function(){
 				$('#fr').each(function(){
@@ -106,7 +100,7 @@
 					if(checked.length > 0) {
 						
 						$.ajax({
-							url: "/performance/prodDelete",
+							url: "/performance/rawMaterialDelete",
 							type: "post",
 							data: {checked:checked},
 							dataType: "text",
@@ -147,7 +141,7 @@
        		<label>품번:</label>
         	<input type="text" name="raw_code" id="searchCode">
         	<label>거래처명:</label>
-        	<input type="text" name="RawMaterialVO.clients.client_actname" id="searchName">
+        	<input type="text" name="clients.client_actname" id="searchName">
         	<br>
         	<label>품명:</label>
         	<input type="text" name="raw_name" id="searchCategory"> 
@@ -156,7 +150,7 @@
 	</form>
 	
 	
-	<form action="" method="post" onsubmit="return false" id="fr">
+	<form action="" method="post" id="fr">
 		<button id="addButton">추가</button>
 		<button id="modify">수정</button>
 		<button id="delete">삭제</button>
@@ -198,7 +192,7 @@
 	
 	<div style="display: block; text-align: center;">		
 		<c:if test="${paging.startPage != 1 }">
-			<a href="/performance/product?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&prod_code=${vo.prod_code }&prod_name=${vo.prod_name }&prod_category=${vo.prod_category }&prod_unit=${vo.prod_unit }">&lt;</a>
+			<a href="/performance/rawMaterial?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&raw_code=${vo.raw_code}&raw_name=${vo.raw_name}&clients.client_actname=${vo.clients.client_actname }">&lt;</a>
 		</c:if>
 		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 			<c:choose>
@@ -206,12 +200,12 @@
 					<b>${p }</b>
 				</c:when>
 				<c:when test="${p != paging.nowPage }">
-					<a href="/performance/product?nowPage=${p }&cntPerPage=${paging.cntPerPage}&prod_code=${vo.prod_code }&prod_name=${vo.prod_name }&prod_category=${vo.prod_category }&prod_unit=${vo.prod_unit }">${p }</a>
+					<a href="/performance/rawMaterial?nowPage=${p }&cntPerPage=${paging.cntPerPage}&raw_code=${vo.raw_code}&raw_name=${vo.raw_name}&clients.client_actname=${vo.clients.client_actname }">${p }</a>
 				</c:when>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${paging.endPage != paging.lastPage}">
-			<a href="/performance/product?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&prod_code=${vo.prod_code }&prod_name=${vo.prod_name }&prod_category=${vo.prod_category }&prod_unit=${vo.prod_unit }">&gt;</a>
+			<a href="/performance/rawMaterial?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&raw_code=${vo.raw_code}&raw_name=${vo.raw_name}&clients.client_actname=${vo.clients.client_actname }">&gt;</a>
 		</c:if>
 	</div>
 

@@ -14,5 +14,8 @@ public class RawMaterialVO {
 	private String raw_note;
 	
 	private ClientsVO clients;
+	public  RawMaterialVO() {
+		clients = new ClientsVO();
+	}
 	
 } //RawMaterailVO

@@ -135,8 +135,8 @@
 			<if test="raw_name != ''">
 				and r.raw_code like concat ('%', #{raw_code}, '%')
 			</if>
-			<if test="client_actname != null">
-				and c.client_actname like concat ('%', 'c.',#{client_actname}), '%')
+			<if test="client_actname != ''">
+				and c.client_actname like concat ('%', #{client_actname}, '%')
 			</if>
 		</where>
 	</select>
@@ -166,19 +166,19 @@
 	<!-- 원자재관리 검색리스트 불러오기 -->
 
 	<!-- 원자재관리 정보 다중 입력 -->
-<!-- 	<insert id="prodIn"> -->
-<!-- 		insert into product -->
-<!-- 		values -->
-<!-- 		(#{prod_code},#{prod_name},#{prod_category},#{prod_unit},#{prod_size}, -->
-<!-- 		#{prod_color},#{client_code},#{prod_price},#{prod_note}) -->
-<!-- 	</insert> -->
+	<insert id="rawIn">
+		insert into raw_material
+		values
+		(#{raw_code},#{raw_name},#{raw_color},#{raw_unit},
+		#{raw_size},#{raw_price},#{client_code},#{raw_note})
+	</insert>
 	<!-- 원자재관리 정보 다중 입력 -->
 
 	<!-- 원자재관리 삭제 -->
-<!-- 	<delete id="deleteProd"> -->
-<!-- 		DELETE FROM product -->
-<!-- 		WHERE prod_code=#{prod_code} -->
-<!-- 	</delete> -->
+	<delete id="deleteRaw">
+		DELETE FROM raw_material
+		WHERE raw_code=#{raw_code}
+	</delete>
 	<!-- 원자재관리 삭제 -->
 
 

@@ -89,19 +89,22 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	}
 
 	// ==========================================================================
-
+	
+	// 원자재 관리 전체리스트 total 값 가져가기 
 	@Override
 	public int countRaw() {
 		logger.debug(" 원자재관리 리스트 갯수 확인 ");
 		return sqlSession.selectOne(NAMESPACE + ".countRaw");
 	}
-
+	
+	// 원자재 관리 전체리스트 목록 가져가기
 	@Override
 	public List<RawMaterialVO> readRawList(PagingVO pvo) throws Exception {
 		logger.debug(" 원자재관리 전체리스트 DAO ");
 		return sqlSession.selectList(NAMESPACE + ".readRaw", pvo);
 	}
-
+	
+	// 원자재관리 검색 total값 가져가기
 	@Override
 	public int countRaw(RawMaterialVO vo) {
 		HashMap<String, Object> data = new HashMap<String, Object>();
@@ -115,7 +118,8 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		
 		return sqlSession.selectOne(NAMESPACE + ".countSearchRaw", data);
 	}
-
+	
+	// 원자재 관리 검색 리스트 목록 가져가기
 	@Override
 	public List<RawMaterialVO> readRawList(RawMaterialVO vo, PagingVO pvo) throws Exception {
 		HashMap<String, Object> data = new HashMap<String, Object>();
@@ -128,17 +132,27 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 
 		return sqlSession.selectList(NAMESPACE + ".readSearchRaw", data);
 	}
-
+	
+	// 원자재관리 정보 추가
 	@Override
 	public void insertRawList(RawMaterialVO raw) {
-		// TODO Auto-generated method stub
+		sqlSession.insert(NAMESPACE + ".rawIn", raw);
 		
 	}
 
 	@Override
 	public void deleteRaw(List<String> checked) throws Exception {
-		// TODO Auto-generated method stub
-		
+		logger.debug("##### DAO: deleteRaw() 호출");
+
+		Iterator<String> it = checked.iterator();
+		int result = 0;
+
+		while (it.hasNext()) {
+			String raw_code = it.next();
+			result += sqlSession.delete(NAMESPACE + ".deleteRaw", raw_code);
+		}
+
+		logger.debug("##### DAO: delete 결과 ===> " + result);
 	}
 	
 	// ==============================================================================
