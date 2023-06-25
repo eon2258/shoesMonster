@@ -10,21 +10,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mysql.cj.xdevapi.Result;
 import com.sm.domain.LineVO;
 import com.sm.domain.LineWhPageVO;
 import com.sm.domain.PagingVO;
 import com.sm.domain.ProductVO;
+import com.sm.domain.RawMaterialVO;
 import com.sm.domain.WarehouseVO;
 import com.sm.domain.Wh_prodVO;
 
 @Repository
-public class PerformanceImpl implements PerformanceDAO {
+public class PerformanceDAOImpl implements PerformanceDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
 
-	private static final Logger logger = LoggerFactory.getLogger(PerformanceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(PerformanceDAOImpl.class);
 
 	private static final String NAMESPACE = "com.sm.mapper.ProductMapper";
 
@@ -89,6 +89,59 @@ public class PerformanceImpl implements PerformanceDAO {
 	}
 
 	// ==========================================================================
+
+	@Override
+	public int countRaw() {
+		logger.debug(" 원자재관리 리스트 갯수 확인 ");
+		return sqlSession.selectOne(NAMESPACE + ".countRaw");
+	}
+
+	@Override
+	public List<RawMaterialVO> readRawList(PagingVO pvo) throws Exception {
+		logger.debug(" 원자재관리 전체리스트 DAO ");
+		return sqlSession.selectList(NAMESPACE + ".readRaw", pvo);
+	}
+
+	@Override
+	public int countRaw(RawMaterialVO vo) {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		
+		data.put("raw_code", vo.getRaw_code());
+		data.put("raw_name", vo.getRaw_name());
+		logger.debug(" vo.getClients().getClient_actname()"+vo.getClients().getClient_actname());
+		if (vo.getClients().getClient_actname() != null) {
+			data.put("client_actname", vo.getClients().getClient_actname());
+		}
+		
+		return sqlSession.selectOne(NAMESPACE + ".countSearchRaw", data);
+	}
+
+	@Override
+	public List<RawMaterialVO> readRawList(RawMaterialVO vo, PagingVO pvo) throws Exception {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+
+		data.put("start", pvo.getStart());
+		data.put("cntPerPage", pvo.getCntPerPage());
+		data.put("raw_code", vo.getRaw_code());
+		data.put("raw_name", vo.getRaw_name());
+		data.put("client_actname", vo.getClients().getClient_actname());
+
+		return sqlSession.selectList(NAMESPACE + ".readSearchRaw", data);
+	}
+
+	@Override
+	public void insertRawList(RawMaterialVO raw) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteRaw(List<String> checked) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	// ==============================================================================
 
 	// 라인 조회
 	@Override

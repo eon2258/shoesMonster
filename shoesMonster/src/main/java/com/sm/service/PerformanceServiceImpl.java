@@ -12,6 +12,7 @@ import com.sm.domain.LineVO;
 import com.sm.domain.LineWhPageVO;
 import com.sm.domain.PagingVO;
 import com.sm.domain.ProductVO;
+import com.sm.domain.RawMaterialVO;
 import com.sm.domain.WarehouseVO;
 import com.sm.domain.Wh_prodVO;
 import com.sm.persistence.PerformanceDAO;
@@ -50,7 +51,6 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return pdao.readProdList(vo,pvo);
 	}
 
-	
 
 	// 품목관리 정보 다중
 	@Override
@@ -66,9 +66,43 @@ public class PerformanceServiceImpl implements PerformanceService {
 		pdao.deleteProd(checked);
 	}
 
-	
 	//==========================================================================
 	
+	@Override
+	public int countRaw() {
+		return pdao.countRaw();
+	}
+
+	@Override
+	public List<RawMaterialVO> getRawList(PagingVO pvo) throws Exception {
+		// TODO Auto-generated method stub
+		return pdao.readRawList(pvo);
+	}
+
+	@Override
+	public int countRaw(RawMaterialVO vo) {
+		return pdao.countRaw(vo);
+	}
+
+	@Override
+	public List<RawMaterialVO> getRawList(RawMaterialVO vo, PagingVO pvo) throws Exception {
+		return pdao.readRawList(vo, pvo);
+	}
+
+	@Override
+	public void insertRaw(List<RawMaterialVO> raw) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeRaw(List<String> checked) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	//==========================================================================
+
 	// 라인 조회
 	@Override
 	public List<LineVO> getLineList() throws Exception {

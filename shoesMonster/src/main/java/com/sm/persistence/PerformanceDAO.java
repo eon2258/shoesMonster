@@ -7,6 +7,7 @@ import com.sm.domain.LineVO;
 import com.sm.domain.LineWhPageVO;
 import com.sm.domain.PagingVO;
 import com.sm.domain.ProductVO;
+import com.sm.domain.RawMaterialVO;
 import com.sm.domain.WarehouseVO;
 import com.sm.domain.Wh_prodVO;
 
@@ -31,6 +32,27 @@ public interface PerformanceDAO {
 	// 품목관리  삭제
 	public void deleteProd(List<String> checked) throws Exception;
 		
+	//==========================================================================
+
+	// 원자재관리 리스트 총갯수
+	public int countRaw();
+
+	// 원자재관리 목록 불러오기
+	public List<RawMaterialVO> readRawList(PagingVO pvo) throws Exception;
+
+	// 원자재관리 리스트 검색갯수
+	public int countRaw(RawMaterialVO vo);
+
+	// 원자재관리 검색리스트 불러오기
+	public List<RawMaterialVO> readRawList(RawMaterialVO vo, PagingVO pvo) throws Exception;
+
+	// 원자재관리 정보 다중 저장
+	public void insertRawList(RawMaterialVO raw);
+
+	// 원자재관리 삭제
+	public void deleteRaw(List<String> checked) throws Exception;
+	
+	
 	//==========================================================================
 	
 	// 라인 조회 - getLineList
