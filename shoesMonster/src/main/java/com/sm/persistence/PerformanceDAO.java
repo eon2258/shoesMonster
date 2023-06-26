@@ -52,7 +52,6 @@ public interface PerformanceDAO {
 	// 원자재관리 삭제
 	public void deleteRaw(List<String> checked) throws Exception;
 	
-	
 	//==========================================================================
 	
 	// 라인 조회 - getLineList

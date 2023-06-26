@@ -136,7 +136,7 @@ public class PerfomanceController {
 		logger.debug("@@@@@ CONTROLLER: deleteProd() 호출");
 		logger.debug("@@@@@ CONTROLLER: checked = " + checked);
 		
-		//서비스 - 작업지시 삭제 
+		//서비스 - 품목관리 정보 삭제 
 		service.removeProd(checked);
 		
 		return "redirect:/performance/product";
@@ -163,11 +163,8 @@ public class PerfomanceController {
 			cntPerPage = "5";
 		}
 		logger.debug("vo : " + vo);
-		vo.getClients().setClient_actname("저장");
-		logger.debug("vo.getClients : " + vo.getClients().getClient_actname());
-		
 
-		if (vo.getRaw_code() != null || vo.getClients() != null || vo.getRaw_name() != null) {
+		if (vo.getRaw_code() != null || vo.getClients().getClient_actname() != null || vo.getRaw_name() != null) {
 			
 			logger.debug("if문 호출");
 			int total = service.countRaw(vo);
@@ -194,7 +191,7 @@ public class PerfomanceController {
 
 	}
 
-	// 품목관리 정보 추가
+	// 원자재관리 정보 추가
 	@RequestMapping(value = "rawMaterial", method = RequestMethod.POST)
 	public String rawMaterialPOST(RawMaterialList raws) throws Exception {
 
@@ -206,13 +203,13 @@ public class PerfomanceController {
 		return "redirect:/performance/rawMaterial";
 	}
 
-	// 품목관리 정보 삭제
+	// 원자재관리 정보 삭제
 	@RequestMapping(value = "/rawMaterialDelete", method = RequestMethod.POST)
 	public String deleteRawMaterial(@RequestParam(value = "checked[]") List<String> checked) throws Exception {
-		logger.debug("@@@@@ CONTROLLER: deleteProd() 호출");
+		logger.debug("@@@@@ CONTROLLER: deleteRawMaterial() 호출");
 		logger.debug("@@@@@ CONTROLLER: checked = " + checked);
 
-		// 서비스 - 작업지시 삭제
+		// 서비스 - 원자재관리 삭제
 		service.removeRaw(checked);
 
 		return "redirect:/performance/rawMaterial";

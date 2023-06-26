@@ -19,4 +19,5 @@ public class RawMaterialVO {
 		clients = new ClientsVO();
 	}
 	
+	
 } //RawMaterailVO

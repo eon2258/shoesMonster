@@ -131,13 +131,22 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 
 	@Override
 	public void insertRawList(RawMaterialVO raw) {
-		// TODO Auto-generated method stub
-		
+		sqlSession.insert(NAMESPACE + ".rawIn", raw);
 	}
 
 	@Override
 	public void deleteRaw(List<String> checked) throws Exception {
-		// TODO Auto-generated method stub
+		logger.debug("##### DAO: deleteRaw() 호출");
+
+		Iterator<String> it = checked.iterator();
+		int result = 0;
+
+		while (it.hasNext()) {
+			String raw_code = it.next();
+			result += sqlSession.delete(NAMESPACE + ".deleteRaw", raw_code);
+		}
+
+		logger.debug("##### DAO: delete 결과 ===> " + result);
 		
 	}
 	

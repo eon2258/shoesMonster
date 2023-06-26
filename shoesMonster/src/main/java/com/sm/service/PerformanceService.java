@@ -40,16 +40,17 @@ public interface PerformanceService {
 	public List<RawMaterialVO> getRawList(PagingVO pvo) throws Exception;
 
 	// 원자재관리 게시물 검색 갯수
-	public int countRaw(RawMaterialVO vo);
+	public int countRaw(RawMaterialVO vo) throws Exception;
 
 	// 원자재관리 검색리스트 불러오기
 	public List<RawMaterialVO> getRawList(RawMaterialVO vo, PagingVO pvo) throws Exception;
 
 	// 원자재관리 정보 다중 저장
-	public void insertRaw(List<RawMaterialVO> raw);
+	public void insertRaw(List<RawMaterialVO> raw) throws Exception;
 
 	// 원자재관리 삭제
 	public void removeRaw(List<String> checked) throws Exception;
+	
 	
 	//==========================================================================
 	

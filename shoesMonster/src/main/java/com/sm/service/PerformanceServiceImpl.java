@@ -91,14 +91,14 @@ public class PerformanceServiceImpl implements PerformanceService {
 
 	@Override
 	public void insertRaw(List<RawMaterialVO> raw) {
-		// TODO Auto-generated method stub
-		
+		for (RawMaterialVO raws : raw) {
+			pdao.insertRawList(raws);
+		}
 	}
 
 	@Override
 	public void removeRaw(List<String> checked) throws Exception {
-		// TODO Auto-generated method stub
-		
+		pdao.deleteRaw(checked);
 	}
 	
 	//==========================================================================
