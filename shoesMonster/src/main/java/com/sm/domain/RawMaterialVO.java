@@ -15,4 +15,8 @@ public class RawMaterialVO {
 	
 	private ClientsVO clients;
 	
+	public RawMaterialVO() {
+		clients = new ClientsVO();
+	}
+	
 } //RawMaterailVO
