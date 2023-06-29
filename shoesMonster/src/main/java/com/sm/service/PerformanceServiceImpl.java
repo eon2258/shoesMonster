@@ -188,6 +188,20 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return pdao.getSearchTotalCount(lvo);
 	}
 	
+	// 라인 추가
+	@Override
+	public void registLine(LineVO lvo) throws Exception {
+			
+		pdao.registLine(lvo);
+	}
+	
+	// 라인 삭제
+	@Override
+	public void deleteLine(List<String> checked) throws Exception {
+		
+		pdao.deleteLine(checked);
+	}
+	
 	// 창고=======================================================================
 
 	// 창고 목록 조회 + 페이징처리
@@ -260,6 +274,9 @@ public class PerformanceServiceImpl implements PerformanceService {
 	public int getPerfCnt(HashMap<String, Object> search) throws Exception {
 		return pdao.getPerfCnt(search);
 	} //getPerfCnt(search)
+
+	
+
 
 
 

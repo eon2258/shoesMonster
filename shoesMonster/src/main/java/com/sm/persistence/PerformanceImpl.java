@@ -282,6 +282,29 @@ public class PerformanceImpl implements PerformanceDAO {
 		logger.debug("result :" + result);
 		return result;
 	}
+	
+	// 라인 추가
+	@Override
+	public void registLine(LineVO lvo) throws Exception {
+		logger.debug("@@ D : registLine(LineVO lvo) 호출 @@");
+		
+		sqlSession.insert(NAMESPACE+".registLine", lvo);
+	}
+	
+	// 라인 삭제
+	@Override
+	public void deleteLine(List<String> checked) throws Exception {
+		logger.debug("@@ D : deleteLine(List<String> checked) 호출 @@");
+		
+		Iterator<String> it = checked.iterator();
+		int result = 0;
+		
+		while(it.hasNext()) {
+			String line_code = it.next();
+			result += sqlSession.delete(NAMESPACE+".deleteLine", line_code);
+		}
+		logger.debug("@@ D : delete ==> "+ result);
+	}
 
 	// ===========창고==============================================
 
@@ -413,6 +436,10 @@ public class PerformanceImpl implements PerformanceDAO {
 		logger.debug("##### DAO: getPerfCnt(search) 호출");
 		return sqlSession.selectOne(NAMESPACE + ".getSearchPerf", search);
 	} //getPerfCnt(search)
+
+
+	
+	
 
 	
 

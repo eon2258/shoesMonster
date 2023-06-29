@@ -364,17 +364,57 @@ public class PerfomanceController {
 		}
 
 	}
-
-	@RequestMapping(value = "/line", method = RequestMethod.POST)
-	public void linePOST(Model model) throws Exception {
-		logger.debug("linePOST() 호출");
-
-		List<LineVO> boardList = service.getLineList();
-		logger.debug("boardList : " + boardList);
-
-//		model.addAttribute("boardList", boardList);
-
+	
+	// 사원 팝업
+	@RequestMapping(value = "/lsearch", method = RequestMethod.GET)
+	public String popUpLineGET(@RequestParam("type") String type,
+						 @RequestParam("input") String input) throws Exception{
+		logger.debug("@#@#@# C : popUpLineGET() 호출");
+		logger.debug("@#@#@# C : type = "+type);
+		
+		if(type.equals("emp")) {
+			return "redirect:/person/empinfo?input="+input;
+		}
+		
+		return "redirect:/performance/line?input="+input;
 	}
+	
+	// 라인 추가
+	@RequestMapping(value = "/lineadd", method = RequestMethod.POST)
+	public String addLine(LineVO lvo) throws Exception{
+		logger.debug("@#@#@# C : addLine(LineVO lvo) 호출 ");
+		logger.debug("@#@#@# C : lvo = "+lvo);
+		
+		// 라인 등록
+		service.registLine(lvo);
+		
+		return "redirect:/performance/line";
+	}
+	
+	// 라인 삭제
+	@RequestMapping(value = "/linedelete", method = RequestMethod.POST)
+	public String deleteLine(@RequestParam(value="checked[]") List<String> checked) throws Exception{
+		logger.debug("@#@#@# C : deleteLine() 호출 ");
+		logger.debug("@#@#@# C : checked = "+checked);
+		
+		// 라인 삭제
+		service.deleteLine(checked);
+		
+		return "redirect:/performance/line";
+	}
+	
+	
+
+//	@RequestMapping(value = "/line", method = RequestMethod.POST)
+//	public void linePOST(Model model) throws Exception {
+//		logger.debug("linePOST() 호출");
+//
+//		List<LineVO> boardList = service.getLineList();
+//		logger.debug("boardList : " + boardList);
+//
+////		model.addAttribute("boardList", boardList);
+//
+//	}
 
 	// ======== 라인 - /line ================================
 

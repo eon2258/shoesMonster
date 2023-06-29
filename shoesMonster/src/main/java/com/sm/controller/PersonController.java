@@ -46,13 +46,19 @@ public class PersonController {
 	// http://localhost:8088/person/empinfo
 	// 사원 목록 조회 (GET)
 	@RequestMapping(value = "/empinfo", method = RequestMethod.GET)
-	public void empInfoGET(Model model, LineWhPageVO pvo) throws Exception {
+	public void empInfoGET(Model model, LineWhPageVO pvo,
+			@RequestParam(value = "input", required = false) String input) throws Exception {
 		logger.debug(" empinfoGET() 호출@@@@@ ");
 		
 		List<EmployeesVO> empList = empService.getEmpList(pvo);
 		logger.debug("empList : " + empList);
 		
 		model.addAttribute("empList", empList);
+		
+		if (input != null && !input.equals("")) {
+			model.addAttribute("input", input);
+			logger.debug("@@@@@@@@@@@@@@@@ input 정보 전달 @@@@@@@@@@@@@@@@");
+		}
 	}
 	
 	// http://localhost:8088/person/management

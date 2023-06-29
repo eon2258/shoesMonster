@@ -16,8 +16,18 @@
 
 <script type="text/javascript">
 	//========================= 함수, 상수 ==================================//
-
-
+	
+	// 오늘 날짜 yyyy-mm-dd
+	function getToday() {
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = ("0" + (1+date.getMonth())).slice(-2);
+		var day = ("0" + date.getDate()).slice(-2);
+		
+		return year+"-"+month+"-"+day;
+	}//getToday()
+	
+	
 	// 팝업으로 열었을 때
 	function popUp() {
 		var queryString = window.location.search;
@@ -71,14 +81,9 @@
 	$(function() {
 		popUp();
 		
-		
-		
-		
-	
-	
 	//============================ 버튼 구현 ====================================//	
 	
-	// 추가
+	/////////////////// 추가
 	$('#add').click(function () {
 		
 		$('#modify').attr("disabled", true);
@@ -100,11 +105,7 @@
 			
 			// 라인코드 
 			tbl += " <td>";
-// 			tbl += " <input type='text' name='wh_code' id='wh_code' readonly value='";
-			tbl += " <input type='text' name='wh_code' id='wh_code'";
-			tbl += "L >"; 
-// 			tbl += "'>";
-// 			tbl += ">";
+			tbl += " <input type='text' name='line_code' id='line_code'required>";
 			tbl += " </td>";
 			
 			// 라인명
@@ -139,7 +140,7 @@
 
 			// 비고			
 			tbl += " <td>";
-			tbl += " <input type='text' name='line_note' id='line_note' required>";
+			tbl += " <input type='text' name='line_note' id='line_note'>";
 			tbl += " </td>";
 			tbl += " </tr>";
 		
@@ -154,26 +155,26 @@
 		}// if (true 클래스 있을 때)
 		
 		//---------------------------------------
-		// 저장
-		$('save').click(function () {
+		///////////////////// 저장 => 폼 태그 안으로 넣어서 굳이 안해도됨
+// 		$('#save').click(function () {
 			
-			var line_code = $('#line_code').val();
-			var line_name = $('#line_name').val();
-			var line_place = $('#line_place').val();
-			var line_use = $('#line_use').val();
-			var emp_id = $('#emp_id').val();
-			var line_note = $('#line_note').val();
+// 			var line_code = $('#line_code').val();
+// 			var line_name = $('#line_name').val();
+// 			var line_place = $('#line_place').val();
+// 			var line_use = $('#line_use').val();
+// 			var emp_id = $('#emp_id').val();
+// 			var line_note = $('#line_note').val();
 			
-			if(line_code == "" || line_name == "" || line_place == "" || line_use == ""
-					|| emp_id == ""){
-				alert("항목을 모두 입력하세요");
-			}else{
-				$('#fr').attr("action", "/line/add");
-				$('#fr').attr("method", "post");
-				$('#fr').submit();
-			}
+// 			if(line_code == "" || line_name == "" || line_place == "" || line_use == ""
+// 					|| emp_id == ""){
+// 				alert("항목을 모두 입력하세요");
+// 			}else{
+// 				$('#fr').attr("action", "/line");
+// 				$('#fr').attr("method", "post");
+// 				$('#fr').submit();
+// 			}
 			
-		}); //저장 save
+// 		}); //저장 save
 		
 		// 취소버튼 (=리셋)
 		$('#cancle').click(function () {
@@ -184,6 +185,88 @@
 		
 		
 	});// 추가 add click
+	
+	////수정/////////
+	
+	
+	
+	
+	
+	////삭제/////////
+	$('#delete').click(function () {
+		
+		$('#add').attr("disabled", true);
+		$('#modify').attr("disabled", true);
+		
+		if($(this).hasClass('true')){
+			
+			// 열: 체크박스 행: 라인코드
+			$('table tr').each(function () {
+				var code = $(this).find('td:nth-child(2)').text();
+				
+				var tbl = "<input type='checkbox' name='selected' value='";
+					tbl += code;
+					tbl += "'>";
+				
+				$(this).find('th:first').html("<input type='checkbox' id='selectAll'>");
+				$(this).find('td:first').html(tbl);
+			});
+			
+			// 전체선택
+			$('#selectAll').click(function () {
+				var checkAll = $(this).is(":checked");
+				
+				if(checkAll){
+					$('input:checkbox').prop('checked', true);
+				}else{
+					$('input:checkbox').prop('checked', false);
+				}
+				
+			});
+			
+			// 저장 -> 삭제
+			$('#save').click(function () {
+				
+				var checked = [];
+				
+				$('input[name=selected]:checked').each(function () {
+					checked.push($(this).val());
+				});
+				
+				// alert(checked);
+				
+				if(checked.length > 0){
+				
+					$.ajax({
+						url: "/performance/linedelete",
+						type: "POST",
+						data: {checked : checked},
+						dataType: "text",
+						success: function () {
+							alert("에이잭스 예에~!~!");
+							location.reload();
+						},
+						error: function () {
+							alert("에이잭스 우우~!~!");
+						}
+					}); // ajax
+					
+				}// 체크OOO
+				else{
+					alert("선택된 항목이 없음");
+				}// 체크 XXX
+	
+			}); // save
+			
+			$(this).removeClass('true');
+		}// if(삭제 버튼 true class O)
+		
+		// 취소 -> 리셋
+		$('#cancle').click(function () {
+			$('input:checkbox').prop('checked', false);
+		});
+		
+	});//delete.click
 	
 	
 	
@@ -222,17 +305,17 @@
 		 <input type="submit" value="검색">
 	</form>
 
-<!-- //////////////////////////////////////////////////////////////////////// -->	
-	
+	<button id="delete" class="true">삭제</button>
+	<button type="submit" id="save">저장</button>
+<form id="fr" method="post">
+
+<!-- /////////////////////버튼///////////////////////////////// -->
 	<button id="add" class="true">추가</button>
 	<button id="modify" >수정</button>
-	<button id="delete" class="true">삭제</button>
+
 	<button type="reset" id="cancle" >취소</button>
-	<button type="submit" id="save">저장</button>
-
-<!-- //////////////////////////////////////////////////////////////////////// -->	
-
-<form id="fr">
+	
+	
 	<table border="1">
 	<a>총 ${lwpm.totalCount } 건</a>
 		<tr>	
@@ -272,22 +355,15 @@
 <!-- //////////////////////////////////////////////////////////////////////// -->	
 	
 	<div id="pagination">
-		<c:if test="${lwpm.startPage != 1 }"> <!-- pageSize 없는 버전 -->
+		<c:if test="${lwpm.prev }">
 			<a href="/performance/line?page=${lwpm.startPage-1 }&line_code=${lvo.line_code }&line_name=${lvo.line_name }&line_use=${lvo.line_use }&line_place=${lvo.line_place}">이 전</a>
 		</c:if>
 		
-		<c:forEach begin="${lwpm.startPage }" end="${lwpm.endPage }" step="1" var="page">
-			<c:choose>
-				<c:when test="${page == lwpm.startPage }">
-					<b>${page }</b>
-				</c:when>
-				<c:when test="${page != lwpm.startPage }">
-					<a href="/performance/line?page=${page }&line_code=${lvo.line_code }&line_name=${lvo.line_name }&line_use=${lvo.line_use }&line_place=${lvo.line_place}">${page }</a>
-				</c:when>
-			</c:choose>
+		<c:forEach var="page" begin="${lwpm.startPage }" end="${lwpm.endPage }" step="1">
+			<a href="/performance/line?page=${page }&line_code=${lvo.line_code }&line_name=${lvo.line_name }&line_use=${lvo.line_use }&line_place=${lvo.line_place}">${page }</a>
 		</c:forEach>
-		
-		<c:if test="${lwpm.next && lwpm.endPage>0 }">
+
+		<c:if test="${pm.next }">
 			<a href="/performance/line?page=${lwpm.endPage+1 }&line_code=${lvo.line_code }&line_name=${lvo.line_name }&line_use=${lvo.line_use }&line_place=${lvo.line_place}">다 음</a>
 		</c:if>
 	</div>

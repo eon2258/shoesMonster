@@ -371,8 +371,23 @@
 		</where>
 		limit #{startPage}, #{pageSize}
 	</select>
-
 	<!-- 라인 검색(페이징처리) -->
+
+	<!-- 라인 등록 -->
+	<insert id="registLine">
+		INSERT INTO line (line_code, line_name, line_use, emp_id, insert_date,
+						  line_note, line_place)
+		VALUES (#{line_code}, #{line_name}, #{line_use}, #{emp_id}, now(), 
+			    #{line_note}, #{line_place})
+	</insert>
+	<!-- 라인 등록 -->
+	
+	<!-- 라인 삭제 -->
+	<delete id="deleteLine">
+		DELETE FROM line
+		WHERE line_code = #{line_code}
+	</delete>
+	<!-- 라인 삭제 -->
 
 	<!-- ///////////////////////////////////////////////////////// -->
 
@@ -443,8 +458,6 @@
 			<result property="prod_name" column="prod_name" />
 		</collection>
 	</resultMap>
-
-
 	
 	<select id="searchWareHouse" resultType="WarehouseVO" 
 					resultMap="whm_SearchPage"  >

@@ -96,7 +96,13 @@ public interface PerformanceService {
 
 	// 서치시 총 글 개수 계산
 	public int getSearchTotalCount(LineVO lvo) throws Exception;
+	
+	// 라인 추가
+	public void registLine(LineVO lvo) throws Exception;
 
+	// 라인 삭제
+	public void deleteLine(List<String> checked) throws Exception;
+	
 	// ===============창고======================================
 
 	// 창고 목록 조회 + 페이징처리
