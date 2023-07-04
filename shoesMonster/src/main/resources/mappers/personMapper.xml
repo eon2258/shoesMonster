@@ -366,7 +366,7 @@
 			<result column="emp_id" property="emp_id"/>
 			<result column="emp_name" property="emp_name"/>
 		</collection>
-	</resultMap>
+	</resultMap> 
 	
 	<select id="orderManageList" resultMap="Client_order_ManageList">
 		select c.client_code, c.client_actname, o.order_date, o.order_deliveryDate,
