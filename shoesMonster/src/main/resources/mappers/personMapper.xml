@@ -299,7 +299,7 @@
 		select count(*)
 		from orders o
 <!-- 		JOIN product p ON p.client_code = o.client_code -->
-		JOIN clients c ON c.client_code = o.client_code
+<!-- 		JOIN clients c ON c.client_code = o.client_code -->
 		
 		<where>
 			<if test="client_actname != null and client_actname != ''">

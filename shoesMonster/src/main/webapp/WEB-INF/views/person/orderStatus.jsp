@@ -127,9 +127,7 @@ $(function(){
 			
 			// 수주업체코드
 			tbl += "<td>";
-			tbl += "<input type='text' name='client_code' id='client_code' required value='";
-			tbl += 'OR';
-			tbl += "'>";
+			tbl += "<input type='text' name='client_code' id='client_code' required>";
 			tbl += "</td>";
 			
 			// 업체
