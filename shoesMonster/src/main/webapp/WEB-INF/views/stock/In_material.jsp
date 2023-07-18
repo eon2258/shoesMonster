@@ -220,7 +220,7 @@ body {
 									<th>단가</th>
 									<th>총액</th>
 									<th>입고일</th>
-									<th>입고 담당자</th>
+									<th>입고 담당</th>
 									<th>입고 확인</th>
 									<th>입고 버튼</th>
 									<th class="bulk-actions" colspan="7"><a class="antoo"
